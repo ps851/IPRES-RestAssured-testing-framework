@@ -2,7 +2,7 @@
 
 A professional REST API test automation framework built with **Java**, **REST Assured**, and **TestNG** — demonstrating production-ready patterns for API testing.
 
-> Portfolio and reference project — *No More Bugs Solutions, s.r.o.*
+> Portfolio and reference project — *Peter Surka*
 
 ---
 
