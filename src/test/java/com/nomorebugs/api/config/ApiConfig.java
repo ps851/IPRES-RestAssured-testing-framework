@@ -3,8 +3,8 @@ package com.nomorebugs.api.config;
 import org.aeonbits.owner.Config;
 
 /**
- * Konfigurácia API testov načítavaná z environment.properties.
- * Podporuje prepisovanie cez system properties (napr. -Denv=staging).
+ * API test configuration loaded from environment.properties.
+ * Supports override via system properties (e.g. -Denv=staging -Dbase.url=https://...).
  */
 @Config.Sources({
     "system:properties",

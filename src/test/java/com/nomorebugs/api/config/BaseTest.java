@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeSuite;
 
 /**
- * Základná trieda pre všetky API testy.
- * Inicializuje REST Assured konfiguráciu a RequestSpecification.
+ * Base class for all API tests.
+ * Initialises REST Assured configuration and shared RequestSpecification once per suite.
  */
 public class BaseTest {
 
@@ -25,7 +25,7 @@ public class BaseTest {
     public void globalSetup() {
         config = ConfigFactory.create(ApiConfig.class, System.getProperties());
 
-        log.info("=== Inicializácia testovacieho suite ===");
+        log.info("=== Test suite initialisation ===");
         log.info("Environment: {}", config.env());
         log.info("Base URL: {}", config.baseUrl());
 
@@ -33,7 +33,7 @@ public class BaseTest {
                 .setBaseUri(config.baseUrl())
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
-                .addFilter(new AllureRestAssured());  // Allure logging
+                .addFilter(new AllureRestAssured());  // attaches request/response to Allure report
 
         if (config.enableLogging()) {
             builder.log(LogDetail.ALL);
@@ -41,7 +41,6 @@ public class BaseTest {
 
         requestSpec = builder.build();
 
-        // Nastaviť globálne pre celý RestAssured
         RestAssured.requestSpecification = requestSpec;
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }

@@ -15,4 +15,22 @@
         </classes>
     </test>
 
+    <test name="Schema Validation Tests">
+        <classes>
+            <class name="com.nomorebugs.api.tests.SchemaValidationTest"/>
+        </classes>
+    </test>
+
+    <test name="Data-Driven Tests">
+        <classes>
+            <class name="com.nomorebugs.api.tests.DataDrivenTest"/>
+        </classes>
+    </test>
+
+    <test name="Authentication Pattern Examples">
+        <classes>
+            <class name="com.nomorebugs.api.tests.AuthExamplesTest"/>
+        </classes>
+    </test>
+
 </suite>

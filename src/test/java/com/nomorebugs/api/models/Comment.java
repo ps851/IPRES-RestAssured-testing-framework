@@ -4,47 +4,42 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * POJO for the JSONPlaceholder /users endpoint.
+ * POJO for the JSONPlaceholder /posts/{id}/comments sub-resource.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User {
+public class Comment {
 
     @JsonProperty("id")
     private Integer id;
 
+    @JsonProperty("postId")
+    private Integer postId;
+
     @JsonProperty("name")
     private String name;
-
-    @JsonProperty("username")
-    private String username;
 
     @JsonProperty("email")
     private String email;
 
-    @JsonProperty("phone")
-    private String phone;
+    @JsonProperty("body")
+    private String body;
 
-    @JsonProperty("website")
-    private String website;
-
-    public User() {}
+    public Comment() {}
 
     public Integer getId() { return id; }
+    public Integer getPostId() { return postId; }
     public String getName() { return name; }
-    public String getUsername() { return username; }
     public String getEmail() { return email; }
-    public String getPhone() { return phone; }
-    public String getWebsite() { return website; }
+    public String getBody() { return body; }
 
     public void setId(Integer id) { this.id = id; }
+    public void setPostId(Integer postId) { this.postId = postId; }
     public void setName(String name) { this.name = name; }
-    public void setUsername(String username) { this.username = username; }
     public void setEmail(String email) { this.email = email; }
-    public void setPhone(String phone) { this.phone = phone; }
-    public void setWebsite(String website) { this.website = website; }
+    public void setBody(String body) { this.body = body; }
 
     @Override
     public String toString() {
-        return "User{id=" + id + ", name='" + name + "', email='" + email + "'}";
+        return "Comment{id=" + id + ", postId=" + postId + ", email='" + email + "'}";
     }
 }

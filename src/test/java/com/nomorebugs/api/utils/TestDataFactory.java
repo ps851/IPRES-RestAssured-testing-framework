@@ -5,47 +5,37 @@ import com.nomorebugs.api.models.Post;
 import java.util.UUID;
 
 /**
- * Továrňa na generovanie testovacích dát.
- * Centralizované miesto pre všetky test data - ľahká údržba.
+ * Centralised factory for test data.
+ * Single source of truth for all payloads — easy to maintain and extend.
  */
 public class TestDataFactory {
 
-    private TestDataFactory() {
-        // Utility class - zabrání inštanciovaniu
-    }
+    private TestDataFactory() {}
 
-    /**
-     * Vytvorí validný Post objekt pre create testy.
-     */
+    /** Creates a valid Post payload for create/update tests. */
     public static Post createValidPost() {
         return new Post(
                 1,
-                "Testovací nadpis - " + UUID.randomUUID().toString().substring(0, 8),
-                "Toto je testovací obsah príspevku vytvorený automatizovaným testom."
+                "Test title - " + UUID.randomUUID().toString().substring(0, 8),
+                "This is a test post body created by an automated test."
         );
     }
 
-    /**
-     * Vytvorí Post s konkrétnym userId pre filter testy.
-     */
+    /** Creates a Post assigned to a specific userId for filter tests. */
     public static Post createPostForUser(int userId) {
         return new Post(
                 userId,
-                "Príspevok pre používateľa " + userId,
-                "Obsah príspevku pre používateľa č. " + userId
+                "Post for user " + userId + " - " + UUID.randomUUID().toString().substring(0, 8),
+                "Post body for user " + userId
         );
     }
 
-    /**
-     * Vytvorí Post s prázdnym titulkom - pre negatívne testy.
-     */
+    /** Creates a Post with an empty title — for negative/edge-case tests. */
     public static Post createPostWithEmptyTitle() {
-        return new Post(1, "", "Telo príspevku existuje, titulok chýba.");
+        return new Post(1, "", "Post body exists but title is missing.");
     }
 
-    /**
-     * Vytvorí Post s null hodnotami - pre negatívne testy.
-     */
+    /** Creates a Post with all null fields — for null-handling tests. */
     public static Post createPostWithNullFields() {
         return new Post(null, null, null);
     }

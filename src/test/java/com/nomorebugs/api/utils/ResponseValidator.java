@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Pomocná trieda pre opakujúce sa validácie odpovedí.
- * DRY princíp - validačná logika na jednom mieste.
+ * Reusable response assertion helpers.
+ * Keeps validation logic in one place (DRY principle).
  */
 public class ResponseValidator {
 
@@ -16,43 +16,33 @@ public class ResponseValidator {
 
     private ResponseValidator() {}
 
-    /**
-     * Overí, že response má očakávaný status kód a nie je prázdny.
-     */
+    /** Asserts the response has the expected HTTP status code. */
     public static void validateStatusCode(Response response, int expectedStatus) {
-        log.debug("Overujem status kód: očakávaný={}, skutočný={}",
-                expectedStatus, response.statusCode());
-
+        log.debug("Validating status code: expected={}, actual={}", expectedStatus, response.statusCode());
         assertThat(response.statusCode())
-                .as("HTTP Status kód")
+                .as("HTTP status code")
                 .isEqualTo(expectedStatus);
     }
 
-    /**
-     * Overí Content-Type hlavičku.
-     */
+    /** Asserts the Content-Type header contains the expected value (case-insensitive). */
     public static void validateContentType(Response response, String expectedContentType) {
         assertThat(response.contentType())
-                .as("Content-Type hlavička")
+                .as("Content-Type header")
                 .containsIgnoringCase(expectedContentType);
     }
 
-    /**
-     * Overí, že odpoveď nie je prázdna a má nenulové telo.
-     */
+    /** Asserts the response body is not blank. */
     public static void validateNonEmptyBody(Response response) {
         assertThat(response.body().asString())
-                .as("Telo odpovede nesmie byť prázdne")
+                .as("Response body must not be empty")
                 .isNotBlank();
     }
 
-    /**
-     * Overí response time voči maximálnej hodnote v ms.
-     */
+    /** Asserts the response time is below the given threshold in milliseconds. */
     public static void validateResponseTime(Response response, long maxMillis) {
-        log.debug("Response time: {} ms (max: {} ms)", response.time(), maxMillis);
+        log.debug("Response time: {} ms (threshold: {} ms)", response.time(), maxMillis);
         assertThat(response.time())
-                .as("Response time musí byť pod %d ms", maxMillis)
+                .as("Response time must be below %d ms", maxMillis)
                 .isLessThan(maxMillis);
     }
 }

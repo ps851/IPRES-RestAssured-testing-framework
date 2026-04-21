@@ -24,18 +24,20 @@ mvn allure:report
 
 ## Architecture
 
-This is a REST Assured + TestNG framework targeting the JSONPlaceholder public API (`https://jsonplaceholder.typicode.com`). Tests cover CRUD operations on `/posts` and `/users` endpoints.
+This is a REST Assured + TestNG framework targeting the JSONPlaceholder public API (`https://jsonplaceholder.typicode.com`). Tests cover CRUD operations on `/posts` and `/users` endpoints plus authentication pattern examples against `httpbin.org`.
 
 **Package layout** (`src/test/java/com/nomorebugs/api/`):
-- `config/` — `ApiConfig` (Owner-based property interface) and `BaseTest` (suite-level `@BeforeSuite` that initialises a shared `RequestSpecification`)
-- `models/` — Jackson-annotated POJOs (`Post`, `User`) used for serialisation/deserialisation
-- `tests/` — `PostsApiTest` (10 methods), `UsersApiTest` (4 methods)
-- `utils/` — `TestDataFactory` (generates test payloads using UUID-based uniqueness) and `ResponseValidator` (reusable assertion helpers including response-time checks)
+- `config/` — `ApiConfig` (Owner-based property interface) and `BaseTest` (suite-level `@BeforeSuite` that initialises a shared `RequestSpecification` with the Allure filter)
+- `models/` — Jackson-annotated POJOs: `Post`, `User`, `Comment`
+- `tests/` — `PostsApiTest` (CRUD + negative), `UsersApiTest` (nested JSON), `AuthExamplesTest` (Basic/Bearer/APIKey against httpbin.org), `SchemaValidationTest` (JSON Schema contracts), `DataDrivenTest` (TestNG `@DataProvider`)
+- `utils/` — `TestDataFactory` (UUID-based payloads) and `ResponseValidator` (reusable assertions including response-time threshold)
 
-**Request flow:** `BaseTest.globalSetup()` loads `environment.properties` via the Owner library (system properties override file values), then builds a `RequestSpecification` with the Allure REST Assured filter attached. Every test method reuses this shared spec.
+**Request flow:** `BaseTest.globalSetup()` loads `environment.properties` via the Owner library (system properties override file values), then builds a shared `RequestSpecification` with the Allure REST Assured filter attached. Every test method reuses this spec. `AuthExamplesTest` builds its own separate spec pointing at `httpbin.org`.
 
-**Assertion style:** REST Assured `.then()` chains use Hamcrest matchers for inline HTTP assertions; extracted POJOs are asserted with AssertJ fluent API (`assertThat(...).satisfies(...)`).
+**Assertion style:** REST Assured `.then()` chains use Hamcrest matchers for inline HTTP assertions; extracted POJOs are asserted with AssertJ fluent API (`assertThat(...).allSatisfy(...)`).
 
-**Allure reporting:** Tests are annotated with `@Epic`, `@Feature`, `@Story`, and `@Severity`. Results land in `target/allure-results`; the Allure Maven plugin turns them into an HTML report.
+**JSON Schema contracts:** Schemas live in `src/test/resources/schemas/` and are validated with `matchesJsonSchemaInClasspath()` from the `json-schema-validator` dependency already in `pom.xml`.
 
-**Configuration:** `src/test/resources/environment.properties` holds `base.url`, `request.timeout`, `enable.logging`, and `env`. Override any property at runtime with `-D<key>=<value>`. The TestNG suite file at `src/test/resources/testng.xml` runs both test classes serially (parallel=none).
+**Allure reporting:** Tests are annotated with `@Epic`, `@Feature`, `@Story`, and `@Severity`. The `AllureRestAssured` filter automatically attaches full request/response to every test step. Results land in `target/allure-results`.
+
+**Configuration:** `src/test/resources/environment.properties` is the dev default. `staging.properties` and `prod.properties` are templates activated with `-Denv=staging` / `-Denv=prod`. The TestNG suite file at `src/test/resources/testng.xml` runs all five test classes serially.

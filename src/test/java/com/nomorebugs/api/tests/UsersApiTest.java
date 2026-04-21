@@ -13,10 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
 
 /**
- * Testy pre /users endpoint.
- * Demonštruje prácu s komplexnejšími modelmi a vnoreným JSON.
- *
- * @author No more bugs solutions, s.r.o.
+ * Tests for the /users endpoint.
+ * Demonstrates nested JSON validation, complex POJO models, and sub-resource relationships.
  */
 @Epic("REST API Testing")
 @Feature("Users API")
@@ -24,7 +22,7 @@ public class UsersApiTest extends BaseTest {
 
     private static final String USERS_ENDPOINT = "/users";
 
-    @Test(description = "GET všetci používatelia - overenie štruktúry")
+    @Test(description = "GET all users - validate list size, email format, and nested address field")
     @Story("GET /users")
     @Severity(SeverityLevel.CRITICAL)
     public void getAllUsers_shouldReturn200WithValidStructure() {
@@ -34,10 +32,10 @@ public class UsersApiTest extends BaseTest {
                 .get(USERS_ENDPOINT)
         .then()
                 .statusCode(200)
-                .body("$", hasSize(10))           // JSONPlaceholder má 10 používateľov
+                .body("$", hasSize(10))
                 .body("id", everyItem(notNullValue()))
-                .body("email", everyItem(containsString("@")))  // email formát
-                .body("address.city", everyItem(notNullValue())) // vnorené pole
+                .body("email", everyItem(containsString("@")))
+                .body("address.city", everyItem(notNullValue()))  // nested field validation
                 .extract().response();
 
         List<User> users = response.jsonPath().getList("$", User.class);
@@ -45,14 +43,14 @@ public class UsersApiTest extends BaseTest {
         assertThat(users).hasSize(10);
         assertThat(users).allSatisfy(user -> {
             assertThat(user.getEmail())
-                    .as("Email používateľa %s musí byť platný", user.getName())
+                    .as("Email of user '%s' must be valid", user.getName())
                     .contains("@");
             assertThat(user.getName()).isNotBlank();
             assertThat(user.getUsername()).isNotBlank();
         });
     }
 
-    @Test(description = "GET používateľ podľa ID - validácia polí")
+    @Test(description = "GET user by ID - nested object validation (address, company)")
     @Story("GET /users/{id}")
     @Severity(SeverityLevel.CRITICAL)
     public void getUserById_shouldReturnCorrectUser() {
@@ -68,7 +66,6 @@ public class UsersApiTest extends BaseTest {
                 .body("id", equalTo(userId))
                 .body("name", not(emptyString()))
                 .body("email", containsString("@"))
-                // Validácia vnorených objektov
                 .body("address", notNullValue())
                 .body("address.city", not(emptyString()))
                 .body("company", notNullValue())
@@ -76,10 +73,10 @@ public class UsersApiTest extends BaseTest {
 
         assertThat(user.getId()).isEqualTo(userId);
         assertThat(user.getName()).isNotBlank();
-        log.info("Načítaný používateľ: {}", user);
+        log.info("Retrieved user: {}", user);
     }
 
-    @Test(description = "GET príspevky konkrétneho používateľa - vzťah user->posts")
+    @Test(description = "GET posts for a specific user - cross-resource relationship")
     @Story("GET /users/{id}/posts")
     @Severity(SeverityLevel.NORMAL)
     public void getUserPosts_shouldReturnPostsForUser() {
@@ -96,8 +93,8 @@ public class UsersApiTest extends BaseTest {
                 .body("userId", everyItem(equalTo(userId)));
     }
 
-    @Test(description = "GET neexistujúci používateľ - 404")
-    @Story("Negatívne testy")
+    @Test(description = "GET non-existent user - expect 404 Not Found")
+    @Story("Negative Tests")
     @Severity(SeverityLevel.NORMAL)
     public void getUser_withInvalidId_shouldReturn404() {
         given()

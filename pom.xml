@@ -12,8 +12,8 @@
 
     <name>REST Assured API Testing Demo</name>
     <description>
-        Vzorové REST Assured repository pre testovanie REST API.
-        No more bugs solutions, s.r.o.
+        REST Assured API testing framework — portfolio and reference project.
+        No More Bugs Solutions, s.r.o.
     </description>
 
     <properties>
