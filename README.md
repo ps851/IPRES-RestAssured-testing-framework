@@ -42,7 +42,7 @@ A professional REST API test automation framework built with **Java**, **REST As
 ## Project structure
 
 ```
-src/test/java/com/nomorebugs/api/
+src/test/java/com/testframework/api/
 ├── config/
 │   ├── ApiConfig.java              # Owner config interface (base URL, timeout, env)
 │   └── BaseTest.java               # @BeforeSuite setup, shared RequestSpecification
