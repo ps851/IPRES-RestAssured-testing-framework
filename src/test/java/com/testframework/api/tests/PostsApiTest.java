@@ -15,19 +15,11 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
 
-/**
- * Tests for the /posts endpoint.
- * Covers: GET (list, by ID, filtered, sub-resource), POST, PUT, PATCH, DELETE, negative cases.
- */
 @Epic("REST API Testing")
 @Feature("Posts API")
 public class PostsApiTest extends BaseTest {
 
     private static final String POSTS_ENDPOINT = "/posts";
-
-    // =====================================================================
-    // GET tests
-    // =====================================================================
 
     @Test(description = "GET all posts - validate list is non-empty and each item is well-formed")
     @Story("GET /posts")
@@ -129,10 +121,6 @@ public class PostsApiTest extends BaseTest {
         });
     }
 
-    // =====================================================================
-    // POST tests
-    // =====================================================================
-
     @Test(description = "POST - create a new post, verify 201 and response body")
     @Story("POST /posts")
     @Severity(SeverityLevel.CRITICAL)
@@ -156,10 +144,6 @@ public class PostsApiTest extends BaseTest {
         log.info("Created post: {}", createdPost);
     }
 
-    // =====================================================================
-    // PUT tests
-    // =====================================================================
-
     @Test(description = "PUT - full resource replacement")
     @Story("PUT /posts/{id}")
     @Severity(SeverityLevel.NORMAL)
@@ -180,10 +164,6 @@ public class PostsApiTest extends BaseTest {
                 .body("title", equalTo(updatedPost.getTitle()));
     }
 
-    // =====================================================================
-    // PATCH tests
-    // =====================================================================
-
     @Test(description = "PATCH - partial resource update, only changed fields sent")
     @Story("PATCH /posts/{id}")
     @Severity(SeverityLevel.NORMAL)
@@ -203,10 +183,6 @@ public class PostsApiTest extends BaseTest {
                 .body("title", equalTo(newTitle));
     }
 
-    // =====================================================================
-    // DELETE tests
-    // =====================================================================
-
     @Test(description = "DELETE - remove a post and verify 200 response")
     @Story("DELETE /posts/{id}")
     @Severity(SeverityLevel.NORMAL)
@@ -223,10 +199,6 @@ public class PostsApiTest extends BaseTest {
 
         log.info("Post with ID {} deleted", postId);
     }
-
-    // =====================================================================
-    // Negative tests
-    // =====================================================================
 
     @Test(description = "GET non-existent post - expect 404 Not Found")
     @Story("Negative Tests")

@@ -7,14 +7,6 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-/**
- * Contract tests using JSON Schema validation.
- *
- * Verifies that API responses conform to the agreed-upon JSON Schema definitions
- * stored in src/test/resources/schemas/. This catches breaking API changes early —
- * e.g. a renamed field or a changed type will fail the schema check even if
- * HTTP status and individual field values look correct.
- */
 @Epic("REST API Testing")
 @Feature("JSON Schema Validation")
 public class SchemaValidationTest extends BaseTest {

@@ -4,15 +4,10 @@ import com.testframework.api.models.Post;
 
 import java.util.UUID;
 
-/**
- * Centralised factory for test data.
- * Single source of truth for all payloads — easy to maintain and extend.
- */
 public class TestDataFactory {
 
     private TestDataFactory() {}
 
-    /** Creates a valid Post payload for create/update tests. */
     public static Post createValidPost() {
         return new Post(
                 1,
@@ -21,7 +16,6 @@ public class TestDataFactory {
         );
     }
 
-    /** Creates a Post assigned to a specific userId for filter tests. */
     public static Post createPostForUser(int userId) {
         return new Post(
                 userId,
@@ -30,12 +24,10 @@ public class TestDataFactory {
         );
     }
 
-    /** Creates a Post with an empty title — for negative/edge-case tests. */
     public static Post createPostWithEmptyTitle() {
         return new Post(1, "", "Post body exists but title is missing.");
     }
 
-    /** Creates a Post with all null fields — for null-handling tests. */
     public static Post createPostWithNullFields() {
         return new Post(null, null, null);
     }

@@ -11,19 +11,9 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
 
-/**
- * Demonstrates data-driven testing using TestNG @DataProvider.
- *
- * A single test method is executed once per row supplied by its DataProvider,
- * keeping test code DRY while covering multiple input combinations.
- */
 @Epic("REST API Testing")
 @Feature("Data-Driven Tests")
 public class DataDrivenTest extends BaseTest {
-
-    // =====================================================================
-    // DataProviders
-    // =====================================================================
 
     @DataProvider(name = "validPostIds")
     public Object[][] validPostIds() {
@@ -43,10 +33,6 @@ public class DataDrivenTest extends BaseTest {
             { TestDataFactory.createPostForUser(5) }
         };
     }
-
-    // =====================================================================
-    // Parameterised tests
-    // =====================================================================
 
     @Test(dataProvider = "validPostIds",
           description = "GET post by ID - runs for each valid ID supplied by DataProvider")

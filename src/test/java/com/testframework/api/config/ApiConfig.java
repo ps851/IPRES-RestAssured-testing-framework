@@ -2,10 +2,6 @@ package com.testframework.api.config;
 
 import org.aeonbits.owner.Config;
 
-/**
- * API test configuration loaded from environment.properties.
- * Supports override via system properties (e.g. -Denv=staging -Dbase.url=https://...).
- */
 @Config.Sources({
     "system:properties",
     "classpath:${env}.properties",

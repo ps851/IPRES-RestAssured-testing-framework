@@ -11,10 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeSuite;
 
-/**
- * Base class for all API tests.
- * Initialises REST Assured configuration and shared RequestSpecification once per suite.
- */
 public class BaseTest {
 
     protected static final Logger log = LoggerFactory.getLogger(BaseTest.class);
@@ -33,7 +29,7 @@ public class BaseTest {
                 .setBaseUri(config.baseUrl())
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
-                .addFilter(new AllureRestAssured());  // attaches request/response to Allure report
+                .addFilter(new AllureRestAssured());
 
         if (config.enableLogging()) {
             builder.log(LogDetail.ALL);

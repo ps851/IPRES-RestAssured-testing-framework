@@ -3,9 +3,6 @@ package com.testframework.api.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * POJO for the JSONPlaceholder /users endpoint.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 

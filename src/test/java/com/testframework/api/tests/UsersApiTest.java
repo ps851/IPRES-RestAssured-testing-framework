@@ -12,10 +12,6 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
 
-/**
- * Tests for the /users endpoint.
- * Demonstrates nested JSON validation, complex POJO models, and sub-resource relationships.
- */
 @Epic("REST API Testing")
 @Feature("Users API")
 public class UsersApiTest extends BaseTest {
@@ -35,7 +31,7 @@ public class UsersApiTest extends BaseTest {
                 .body("$", hasSize(10))
                 .body("id", everyItem(notNullValue()))
                 .body("email", everyItem(containsString("@")))
-                .body("address.city", everyItem(notNullValue()))  // nested field validation
+                .body("address.city", everyItem(notNullValue()))
                 .extract().response();
 
         List<User> users = response.jsonPath().getList("$", User.class);

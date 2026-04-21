@@ -11,13 +11,6 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-/**
- * Demonstrates common authentication patterns used in REST API testing.
- *
- * Uses httpbin.org — a public HTTP inspection service — to verify that
- * credentials and headers are sent correctly. In a real project, replace
- * the base URL and credentials with your actual API endpoints.
- */
 @Epic("REST API Testing")
 @Feature("Authentication Patterns")
 public class AuthExamplesTest extends BaseTest {
@@ -33,10 +26,6 @@ public class AuthExamplesTest extends BaseTest {
                 .setAccept(ContentType.JSON)
                 .build();
     }
-
-    // =====================================================================
-    // Basic Authentication
-    // =====================================================================
 
     @Test(description = "Basic Auth - valid credentials return 200 with authenticated=true")
     @Story("Basic Auth")
@@ -69,10 +58,6 @@ public class AuthExamplesTest extends BaseTest {
                 .statusCode(401);
     }
 
-    // =====================================================================
-    // Bearer Token (OAuth2 / JWT)
-    // =====================================================================
-
     @Test(description = "Bearer Token - Authorization header set via .auth().oauth2()")
     @Story("Bearer Token")
     @Severity(SeverityLevel.CRITICAL)
@@ -89,10 +74,6 @@ public class AuthExamplesTest extends BaseTest {
                 .body("authenticated", equalTo(true))
                 .body("token", equalTo(token));
     }
-
-    // =====================================================================
-    // API Key Authentication
-    // =====================================================================
 
     @Test(description = "API Key in header - X-API-Key header forwarded to server")
     @Story("API Key Auth")
