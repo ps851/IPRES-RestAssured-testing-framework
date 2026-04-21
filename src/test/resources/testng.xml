@@ -5,31 +5,31 @@
 
     <test name="Posts API Tests">
         <classes>
-            <class name="com.nomorebugs.api.tests.PostsApiTest"/>
+            <class name="com.testframework.api.tests.PostsApiTest"/>
         </classes>
     </test>
 
     <test name="Users API Tests">
         <classes>
-            <class name="com.nomorebugs.api.tests.UsersApiTest"/>
+            <class name="com.testframework.api.tests.UsersApiTest"/>
         </classes>
     </test>
 
     <test name="Schema Validation Tests">
         <classes>
-            <class name="com.nomorebugs.api.tests.SchemaValidationTest"/>
+            <class name="com.testframework.api.tests.SchemaValidationTest"/>
         </classes>
     </test>
 
     <test name="Data-Driven Tests">
         <classes>
-            <class name="com.nomorebugs.api.tests.DataDrivenTest"/>
+            <class name="com.testframework.api.tests.DataDrivenTest"/>
         </classes>
     </test>
 
     <test name="Authentication Pattern Examples">
         <classes>
-            <class name="com.nomorebugs.api.tests.AuthExamplesTest"/>
+            <class name="com.testframework.api.tests.AuthExamplesTest"/>
         </classes>
     </test>
 

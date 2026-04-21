@@ -1,6 +1,6 @@
-package com.nomorebugs.api.tests;
+package com.testframework.api.tests;
 
-import com.nomorebugs.api.config.BaseTest;
+import com.testframework.api.config.BaseTest;
 import io.qameta.allure.*;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;

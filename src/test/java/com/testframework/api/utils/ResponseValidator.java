@@ -1,4 +1,4 @@
-package com.nomorebugs.api.utils;
+package com.testframework.api.utils;
 
 import io.restassured.response.Response;
 import org.slf4j.Logger;

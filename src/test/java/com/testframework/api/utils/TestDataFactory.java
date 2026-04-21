@@ -1,6 +1,6 @@
-package com.nomorebugs.api.utils;
+package com.testframework.api.utils;
 
-import com.nomorebugs.api.models.Post;
+import com.testframework.api.models.Post;
 
 import java.util.UUID;
 

@@ -1,8 +1,8 @@
-package com.nomorebugs.api.tests;
+package com.testframework.api.tests;
 
-import com.nomorebugs.api.config.BaseTest;
-import com.nomorebugs.api.models.Post;
-import com.nomorebugs.api.utils.TestDataFactory;
+import com.testframework.api.config.BaseTest;
+import com.testframework.api.models.Post;
+import com.testframework.api.utils.TestDataFactory;
 import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

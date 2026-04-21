@@ -1,4 +1,4 @@
-package com.nomorebugs.api.config;
+package com.testframework.api.config;
 
 import org.aeonbits.owner.Config;
 
